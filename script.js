@@ -2,11 +2,11 @@ let gameBoard = (() => {
   let currentPiece = '';
   let board = document.querySelectorAll('.game_board_spot');
   const setupBoard = () => {
-    board.forEach((element) => {
+    board.forEach((element, index) => {
       element.addEventListener('click', game.placePiece);
+      element.setAttribute('index', index);
     });
   };
-
 
   return {
     setupBoard,
@@ -27,9 +27,13 @@ let game = (() => {
     displayController.turnInfo(currentPlayer.playerName);
     players.push(currentPlayer);
   }
-  const placePiece = () => {
-    console.log(currentPlayer.playerPiece);
-    turnStart();
+  const placePiece = (e) => {
+    console.log(e.target.innerText)
+    if (e.target.innerText == '') {
+      console.log('empty')
+      e.target.innerText = currentPlayer.playerPiece;
+      turnStart();
+    };
   }
   return {
     setPlayers,
@@ -42,6 +46,9 @@ let displayController = (() => {
   const infoBox = document.getElementById('info-box');
   const turnInfo = (playerName) => {
     infoBox.innerText = `${playerName}'s Turn`
+  }
+  const setPiece = (spot, piece) => {
+
   }
   return {
     turnInfo
