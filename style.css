@@ -20,6 +20,8 @@
   background-color: hsl(0, 0%, 80%);
   transition: transform;
   transition-duration: .1s;
+  font-size: 10rem;
+  text-align: center;
 }
 
 .game_board_spot:hover {
