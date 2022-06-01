@@ -9,10 +9,14 @@ let gameBoard = (() => {
     });
   };
 
+  const fullBoard = () => {
+    return (!!state.find(''))
+  }
+
   return {
     setupBoard,
-    board,
-    currentPiece
+    fullBoard,
+    state
   }
 })();
 
