@@ -1,6 +1,7 @@
 let gameBoard = (() => {
-  let state = ['','','','','','','','','']
+  let state = Array(9).fill('', 0);
   const boardDiv = document.querySelector('.game_board');
+
   const setupBoard = () => {
     domManipulator.removeChildren(boardDiv);
     state.forEach((element, index) => {
@@ -10,7 +11,13 @@ let gameBoard = (() => {
   };
 
   const fullBoard = () => {
-    return (!!state.find(''))
+    return (state.some((element) => { element == '' }));
+  }
+
+  const wonBoard = () => {
+    012
+    345
+    678
   }
 
   return {
