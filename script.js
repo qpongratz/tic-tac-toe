@@ -14,15 +14,22 @@ let gameBoard = (() => {
     return (state.some((element) => { element == '' }));
   }
 
-  const wonBoard = () => {
-    012
-    345
-    678
+  const wonBoard = (piece) => {
+    const equalPiece = (element) => element == piece;
+    return ([state[0], state[1], state[2]].every(equalPiece) ||
+            [state[3], state[4], state[5]].every(equalPiece) ||
+            [state[6], state[7], state[8]].every(equalPiece) ||
+            [state[0], state[3], state[6]].every(equalPiece) ||
+            [state[1], state[4], state[7]].every(equalPiece) ||
+            [state[2], state[5], state[8]].every(equalPiece) ||
+            [state[0], state[4], state[8]].every(equalPiece) ||
+            [state[2], state[4], state[6]].every(equalPiece))
   }
 
   return {
     setupBoard,
     fullBoard,
+    wonBoard,
     state
   }
 })();
