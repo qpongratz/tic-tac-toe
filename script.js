@@ -13,6 +13,8 @@ let gameBoard = (() => {
   const placePiece = (piece, spot) => {
     const index = parseInt(spot);
     if (state[index] == '') {
+      state[index] = piece;
+      domManipulator.placePiece(piece, spot);
       return true;
     } else {
       return false;
@@ -58,10 +60,14 @@ let game = (() => {
   }
   const placePiece = (e) => {
     const spot = e.target.getAttribute('index');
-    console.log(spot);
-    if (gameBoard.placePiece(currentPlayer.playerPiece, spot)) {
-      console.log('success');
-    };
+    if (!gameBoard.placePiece(currentPlayer.playerPiece, spot)) return false;
+
+    checkEnd();
+  }
+
+  const checkEnd = () => {
+    console.log('Checking if game is over eventually')
+    turnStart();
   }
   return {
     setPlayers,
@@ -72,9 +78,11 @@ let game = (() => {
 
 let domManipulator = (() => {
   const infoBox = document.getElementById('info-box');
+
   const turnInfo = (playerName) => {
     infoBox.innerText = `${playerName}'s Turn`;
-  }
+  };
+
   const removeChildren = (parent) => {
     while (parent.firstChild) {
       parent.removeChild(parent.firstChild);
@@ -87,11 +95,18 @@ let domManipulator = (() => {
     spot.classList.toggle('game_board_spot');
     spot.addEventListener('click', game.placePiece);
     return spot;
-  }
+  };
+
+  const placePiece = (text, indexAttribute) => {
+    const div = document.querySelector(`[index="${indexAttribute}"]`);
+    div.innerText = text;
+  };
+
   return {
     turnInfo,
     removeChildren,
-    createSpot
+    createSpot,
+    placePiece
   }
 })();
 
