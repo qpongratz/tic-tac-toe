@@ -24,7 +24,7 @@ let game = (() => {
   }
   const turnStart = () => {
     currentPlayer = players.shift();
-    displayController.turnInfo(currentPlayer.playerName);
+    domManipulator.turnInfo(currentPlayer.playerName);
     players.push(currentPlayer);
   }
   const placePiece = (e) => {
