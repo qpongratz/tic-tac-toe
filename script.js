@@ -42,16 +42,19 @@ let game = (() => {
   }
 })();
 
-let displayController = (() => {
+let domManipulator = (() => {
   const infoBox = document.getElementById('info-box');
   const turnInfo = (playerName) => {
     infoBox.innerText = `${playerName}'s Turn`
   }
-  const setPiece = (spot, piece) => {
-
+  const removeChildren = (parent) => {
+    while (parent.firstChild) {
+      parent.removeChild(parent.firstChild);
+    };
   }
   return {
-    turnInfo
+    turnInfo,
+    removeChildren
   }
 })();
 
