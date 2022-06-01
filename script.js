@@ -64,11 +64,18 @@ let game = (() => {
 
     checkEnd();
   }
-
   const checkEnd = () => {
-    console.log('Checking if game is over eventually')
-    turnStart();
-  }
+    if (gameBoard.wonBoard(currentPlayer.playerPiece)) {
+      console.log('winner');
+      return;
+    } else if (gameBoard.fullBoard()) {
+      console.log('draw');
+      return;
+    } else {
+      turnStart();
+    };
+  };
+
   return {
     setPlayers,
     turnStart,
