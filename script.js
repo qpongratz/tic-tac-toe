@@ -1,10 +1,11 @@
 let gameBoard = (() => {
-  let currentPiece = '';
-  let board = document.querySelectorAll('.game_board_spot');
+  let state = ['','','','','','','','','']
+  const boardDiv = document.querySelector('.game_board');
   const setupBoard = () => {
-    board.forEach((element, index) => {
-      element.addEventListener('click', game.placePiece);
-      element.setAttribute('index', index);
+    domManipulator.removeChildren(boardDiv);
+    state.forEach((element, index) => {
+      console.log(index);
+      boardDiv.appendChild(domManipulator.createSpot(element, index));
     });
   };
 
@@ -51,10 +52,18 @@ let domManipulator = (() => {
     while (parent.firstChild) {
       parent.removeChild(parent.firstChild);
     };
+  };
+  const createSpot = (element, index) => {
+    spot = document.createElement('div');
+    spot.setAttribute('index', index);
+    spot.innerText = element;
+    spot.classList.toggle('game_board_spot')
+    return spot;
   }
   return {
     turnInfo,
-    removeChildren
+    removeChildren,
+    createSpot
   }
 })();
 
@@ -69,8 +78,5 @@ let player = (name, piece) => {
 
 game.setPlayers(player('June', 'X'), player('Randall', 'O'));
 
-console.log(gameBoard.board);
+console.log(gameBoard.state)
 gameBoard.setupBoard();
-game.turnStart();
-game.turnStart();
-game.turnStart();
