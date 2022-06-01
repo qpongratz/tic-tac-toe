@@ -1,7 +1,17 @@
 let gameBoard = (() => {
-  let board = new Array(9);
+  let currentPiece = '';
+  let board = document.querySelectorAll('.game_board_spot');
+  const setupBoard = () => {
+    board.forEach((element) => {
+      element.addEventListener('click', game.placePiece);
+    });
+  };
+
+
   return {
-    board
+    setupBoard,
+    board,
+    currentPiece
   }
 })();
 
@@ -15,12 +25,16 @@ let game = (() => {
   const turnStart = () => {
     currentPlayer = players.shift();
     displayController.turnInfo(currentPlayer.playerName);
-    console.log(currentPlayer.playerName);
     players.push(currentPlayer);
+  }
+  const placePiece = () => {
+    console.log(currentPlayer.playerPiece);
+    turnStart();
   }
   return {
     setPlayers,
-    turnStart
+    turnStart,
+    placePiece
   }
 })();
 
@@ -34,17 +48,19 @@ let displayController = (() => {
   }
 })();
 
-let player = (name) => {
-  let playerName = name
+let player = (name, piece) => {
+  const playerName = name
+  const playerPiece = piece;
   return {
-    playerName
+    playerName,
+    playerPiece
   }
 }
 
-game.setPlayers(player('June'), player('Randall'));
+game.setPlayers(player('June', 'X'), player('Randall', 'O'));
 
-game.turnStart();
-game.turnStart();
+console.log(gameBoard.board);
+gameBoard.setupBoard();
 game.turnStart();
 game.turnStart();
 game.turnStart();
