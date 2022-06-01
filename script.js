@@ -10,6 +10,15 @@ let gameBoard = (() => {
     });
   };
 
+  const placePiece = (piece, spot) => {
+    const index = parseInt(spot);
+    if (state[index] == '') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   const fullBoard = () => {
     return (state.some((element) => { element == '' }));
   }
@@ -30,6 +39,7 @@ let gameBoard = (() => {
     setupBoard,
     fullBoard,
     wonBoard,
+    placePiece,
     state
   }
 })();
@@ -47,11 +57,10 @@ let game = (() => {
     players.push(currentPlayer);
   }
   const placePiece = (e) => {
-    console.log(e.target.innerText)
-    if (e.target.innerText == '') {
-      console.log('empty')
-      e.target.innerText = currentPlayer.playerPiece;
-      turnStart();
+    const spot = e.target.getAttribute('index');
+    console.log(spot);
+    if (gameBoard.placePiece(currentPlayer.playerPiece, spot)) {
+      console.log('success');
     };
   }
   return {
@@ -64,7 +73,7 @@ let game = (() => {
 let domManipulator = (() => {
   const infoBox = document.getElementById('info-box');
   const turnInfo = (playerName) => {
-    infoBox.innerText = `${playerName}'s Turn`
+    infoBox.innerText = `${playerName}'s Turn`;
   }
   const removeChildren = (parent) => {
     while (parent.firstChild) {
@@ -75,7 +84,8 @@ let domManipulator = (() => {
     spot = document.createElement('div');
     spot.setAttribute('index', index);
     spot.innerText = element;
-    spot.classList.toggle('game_board_spot')
+    spot.classList.toggle('game_board_spot');
+    spot.addEventListener('click', game.placePiece);
     return spot;
   }
   return {
@@ -98,3 +108,4 @@ game.setPlayers(player('June', 'X'), player('Randall', 'O'));
 
 console.log(gameBoard.state)
 gameBoard.setupBoard();
+game.turnStart();
