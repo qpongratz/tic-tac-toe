@@ -57,6 +57,11 @@ let game = (() => {
     currentPlayer = players.shift();
     domManipulator.turnInfo(currentPlayer.playerName);
     players.push(currentPlayer);
+    console.log(currentPlayer.playerPiece)
+    if (currentPlayer.robot) {
+      gameBoard.placePiece(currentPlayer.playerPiece, currentPlayer.makeMove(gameBoard.state));
+      checkEnd();
+    };
   }
   const placePiece = (e) => {
     const spot = e.target.getAttribute('index');
@@ -118,7 +123,7 @@ let domManipulator = (() => {
 })();
 
 let player = (name, piece) => {
-  const playerName = name
+  const playerName = name;
   const playerPiece = piece;
   return {
     playerName,
@@ -129,6 +134,7 @@ let player = (name, piece) => {
 let computer = (name, piece) => {
   const playerName = name;
   const playerPiece = piece;
+  const robot = true;
   const availableMoves = (boardState) => {
     let moves = []
     boardState.forEach((element, index) => {
@@ -140,16 +146,22 @@ let computer = (name, piece) => {
   };
   const makeMove = (boardState) => {
     let potentialMoves = availableMoves(boardState);
-    console.log(potentialMoves);
-  }
+    return chooseMove(potentialMoves);
+  };
+  const chooseMove = (arrayOfMoves) => {
+    const randomIndex = Math.floor(Math.random() * arrayOfMoves.length);
+    const choice = arrayOfMoves[randomIndex];
+    return choice;
+  };
   return{
     playerName,
     playerPiece,
+    robot,
     makeMove
   }
 }
 
-game.setPlayers(player('June', 'X'), player('Randall', 'O'));
+game.setPlayers(player('June', 'X'), computer('Randall', 'O'));
 
 console.log(gameBoard.state)
 gameBoard.setupBoard();
