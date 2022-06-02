@@ -126,8 +126,35 @@ let player = (name, piece) => {
   }
 }
 
+let computer = (name, piece) => {
+  const playerName = name;
+  const playerPiece = piece;
+  const availableMoves = (boardState) => {
+    let moves = []
+    boardState.forEach((element, index) => {
+      if (element == '') {
+        moves.push(index);
+      };
+    });
+    return moves;
+  };
+  const makeMove = (boardState) => {
+    let potentialMoves = availableMoves(boardState);
+    console.log(potentialMoves);
+  }
+  return{
+    playerName,
+    playerPiece,
+    makeMove
+  }
+}
+
 game.setPlayers(player('June', 'X'), player('Randall', 'O'));
 
 console.log(gameBoard.state)
 gameBoard.setupBoard();
 game.turnStart();
+
+computerPlayer = computer('Robot', 'X');
+let array = ['x', 'x', '', '', 'o', 'x', '']
+computerPlayer.makeMove(array)
