@@ -60,6 +60,7 @@ let game = (() => {
   let currentPlayer = null
   let active = false;
   const setPlayers = (player1, player2) => {
+    players = [];
     players.push(player1);
     players.push(player2);
   }
