@@ -105,6 +105,7 @@ let game = (() => {
   };
 
   return {
+    gameSetup,
     setPlayers,
     turnStart,
     placePiece
