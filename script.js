@@ -8,6 +8,11 @@ let gameBoard = (() => {
 
   const resetBoard = () => {
     domManipulator.removeChildren(boardDiv);
+    state = Array(9).fill('', 0);
+    setupBoard();
+  }
+
+  const setupBoard = () => {
     state.forEach((element, index) => {
       console.log(index);
       boardDiv.appendChild(domManipulator.createSpot(element, index));
@@ -57,6 +62,11 @@ let game = (() => {
   const setPlayers = (player1, player2) => {
     players.push(player1);
     players.push(player2);
+  }
+  const gameSetup = () => {
+    // setup the players
+    gameBoard.resetBoard();
+    turnStart();
   }
   const turnStart = () => {
     currentPlayer = players.shift();
