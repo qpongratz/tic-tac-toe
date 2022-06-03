@@ -118,8 +118,8 @@ let domManipulator = (() => {
   };
 
   const placePiece = (text, indexAttribute) => {
-    const div = document.querySelector(`[index="${indexAttribute}"]`);
-    div.innerText = text;
+    const spot = document.querySelector(`[index="${indexAttribute}"]`);
+    spot.innerText = text;
   };
 
   return {
