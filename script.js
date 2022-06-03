@@ -49,6 +49,7 @@ let gameBoard = (() => {
 let game = (() => {
   let players = [];
   let currentPlayer = null
+  let active = false;
   const setPlayers = (player1, player2) => {
     players.push(player1);
     players.push(player2);
@@ -59,17 +60,24 @@ let game = (() => {
     players.push(currentPlayer);
     console.log(currentPlayer.playerPiece)
     if (currentPlayer.robot) {
-      gameBoard.placePiece(currentPlayer.playerPiece, currentPlayer.makeMove(gameBoard.state));
-      checkEnd();
+      setTimeout(robotMove, 500);
+    } else {
+      active = true;
     };
   }
+  const robotMove = () => {
+    gameBoard.placePiece(currentPlayer.playerPiece, currentPlayer.makeMove(gameBoard.state));
+    checkEnd();
+  }
   const placePiece = (e) => {
+    if (!active) return false;
     const spot = e.target.getAttribute('index');
     if (!gameBoard.placePiece(currentPlayer.playerPiece, spot)) return false;
 
     checkEnd();
   }
   const checkEnd = () => {
+    active = false;
     if (gameBoard.wonBoard(currentPlayer.playerPiece)) {
       console.log('winner');
       return;
