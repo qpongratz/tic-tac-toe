@@ -2,7 +2,11 @@ let gameBoard = (() => {
   let state = Array(9).fill('', 0);
   const boardDiv = document.querySelector('.game_board');
 
-  const setupBoard = () => {
+  const getState = () => {
+    return state;
+  }
+
+  const resetBoard = () => {
     domManipulator.removeChildren(boardDiv);
     state.forEach((element, index) => {
       console.log(index);
@@ -66,7 +70,7 @@ let game = (() => {
     };
   }
   const robotMove = () => {
-    gameBoard.placePiece(currentPlayer.playerPiece, currentPlayer.makeMove(gameBoard.state));
+    gameBoard.placePiece(currentPlayer.playerPiece, currentPlayer.makeMove(gameBoard.getState()));
     checkEnd();
   }
   const placePiece = (e) => {
