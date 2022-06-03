@@ -31,7 +31,7 @@ let gameBoard = (() => {
   }
 
   const fullBoard = () => {
-    return (state.some((element) => { element == '' }));
+    return !(state.includes(''));
   }
 
   const wonBoard = (piece) => {
@@ -47,11 +47,11 @@ let gameBoard = (() => {
   }
 
   return {
-    setupBoard,
+    resetBoard,
     fullBoard,
     wonBoard,
     placePiece,
-    state
+    getState
   }
 })();
 
@@ -203,12 +203,20 @@ let computer = (name, piece) => {
   }
 }
 
-game.setPlayers(player('June', 'X'), computer('Randall', 'O'));
+const playerModal = document.getElementById('player_modal');
+const player1NameInput = document.getElementById('player1_name');
+const player1ComputerStatus = document.getElementById('player1_computer')
+const player2NameInput = document.getElementById('player2_name');
+const player2ComputerStatus = document.getElementById('player2_computer');
+const playerInfoSubmit = document.getElementById('player_info_submit');
 
-console.log(gameBoard.state)
-gameBoard.setupBoard();
-game.turnStart();
-
-computerPlayer = computer('Robot', 'X');
-let array = ['x', 'x', '', '', 'o', 'x', '']
-computerPlayer.makeMove(array)
+playerInfoSubmit.addEventListener('click', (e) => {
+  e.preventDefault();
+  const player1Name = player1NameInput.value;
+  const player2Name = player2NameInput.value;
+  let player1 = (player1ComputerStatus.checked) ? computer(player1Name, 'X') : player(player1Name, 'X');
+  let player2 = (player2ComputerStatus.checked) ? computer(player2Name, 'O') : player(player2Name, 'O');
+  game.setPlayers(player1, player2);
+  playerModal.classList.add('hidden');
+  game.gameSetup();
+});
