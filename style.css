@@ -18,8 +18,6 @@
   width: 100%;
   height: 100%;
   background-color: hsl(0, 0%, 80%);
-  transition: transform;
-  transition-duration: .1s;
   font-size: 10rem;
   text-align: center;
 }
@@ -28,7 +26,30 @@
   background-color: hsl(0, 0%, 90%);
 }
 
-.game_board_spot:active {
-  box-shadow: inset 1px 1px 5px 0px black;
-  transform: scale(.99);
+.winner {
+  animation-name: spinner-winner;
+  animation-duration: .2s;
+  animation-iteration-count: 60;
+}
+
+.loser {
+  animation-name: spinner-loser;
+  animation-duration: 5s;
+  animation-iteration-count: 2;
+  animation-direction: alternate;
+}
+
+@keyframes spinner-loser {
+  100% {
+    transform: rotateZ(4000deg) scale(0%);
+  }
+}
+
+@keyframes spinner-winner {
+  25% {
+    transform: rotateZ(1deg);
+  }
+  75% {
+    transform: rotateZ(-1deg);
+  }
 }
