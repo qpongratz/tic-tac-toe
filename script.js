@@ -79,10 +79,10 @@ let game = (() => {
   const checkEnd = () => {
     active = false;
     if (gameBoard.wonBoard(currentPlayer.playerPiece)) {
-      console.log('winner');
+      domManipulator.winInfo(currentPlayer.playerName, currentPlayer.playerPiece);
       return;
     } else if (gameBoard.fullBoard()) {
-      console.log('draw');
+      domManipulator.drawInfo();
       return;
     } else {
       turnStart();
@@ -102,6 +102,22 @@ let domManipulator = (() => {
   const turnInfo = (playerName) => {
     infoBox.innerText = `${playerName}'s Turn`;
   };
+
+  const winInfo = (playerName, playerPiece) => {
+    infoBox.innerText = `${playerName} Wins!`;
+    const spots = document.querySelectorAll('.game_board_spot');
+    spots.forEach( (spot) => {
+      if (spot.innerText == playerPiece) {
+        spot.classList.toggle('winner');
+      } else {
+        spot.classList.toggle('loser');
+      };
+    });
+  };
+
+  const drawInfo = () => {
+    infoBox.innerText = "Tie Game."
+  }
 
   const removeChildren = (parent) => {
     while (parent.firstChild) {
@@ -124,6 +140,8 @@ let domManipulator = (() => {
 
   return {
     turnInfo,
+    winInfo,
+    drawInfo,
     removeChildren,
     createSpot,
     placePiece
