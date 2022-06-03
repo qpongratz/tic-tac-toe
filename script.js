@@ -109,7 +109,7 @@ let domManipulator = (() => {
     };
   };
   const createSpot = (element, index) => {
-    spot = document.createElement('div');
+    spot = document.createElement('button');
     spot.setAttribute('index', index);
     spot.innerText = element;
     spot.classList.toggle('game_board_spot');
