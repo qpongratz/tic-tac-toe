@@ -2,6 +2,12 @@
   box-sizing: border-box;
 }
 
+.game_info {
+  margin-inline: auto;
+  text-align: center;
+  font-size: 5rem;
+}
+
 .game_board {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
