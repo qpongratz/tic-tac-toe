@@ -124,13 +124,13 @@ let domManipulator = (() => {
   const player1ComputerStatus = document.getElementById('player1_computer')
   const player2NameInput = document.getElementById('player2_name');
   const player2ComputerStatus = document.getElementById('player2_computer');
-  const playerInfoSubmit = document.getElementById('player_info_submit');
+  const playerInfoForm = document.getElementById('player_info_form')
 
   const getPlayerInfo = () => {
     playerModal.classList.remove('hidden');
   };
 
-  playerInfoSubmit.addEventListener('click', (e) => {
+  playerInfoForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const player1Name = player1NameInput.value;
     const player2Name = player2NameInput.value;
