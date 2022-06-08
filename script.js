@@ -65,7 +65,11 @@ let game = (() => {
     players.push(player2);
   }
   const gameSetup = () => {
-    // setup the players
+    gameBoard.resetBoard();
+    domManipulator.getPlayerInfo();
+  }
+
+  const newMatch = () => {
     gameBoard.resetBoard();
     turnStart();
   }
@@ -108,12 +112,34 @@ let game = (() => {
     gameSetup,
     setPlayers,
     turnStart,
-    placePiece
+    placePiece,
+    newMatch
   }
 })();
 
 let domManipulator = (() => {
   const infoBox = document.getElementById('info-box');
+  const playerModal = document.getElementById('player_modal');
+  const player1NameInput = document.getElementById('player1_name');
+  const player1ComputerStatus = document.getElementById('player1_computer')
+  const player2NameInput = document.getElementById('player2_name');
+  const player2ComputerStatus = document.getElementById('player2_computer');
+  const playerInfoSubmit = document.getElementById('player_info_submit');
+
+  const getPlayerInfo = () => {
+    playerModal.classList.remove('hidden');
+  };
+
+  playerInfoSubmit.addEventListener('click', (e) => {
+    e.preventDefault();
+    const player1Name = player1NameInput.value;
+    const player2Name = player2NameInput.value;
+    let player1 = (player1ComputerStatus.checked) ? computer(player1Name, 'X') : player(player1Name, 'X');
+    let player2 = (player2ComputerStatus.checked) ? computer(player2Name, 'O') : player(player2Name, 'O');
+    game.setPlayers(player1, player2);
+    playerModal.classList.add('hidden');
+    game.turnStart();
+  });
 
   const turnInfo = (playerName) => {
     infoBox.innerText = `${playerName}'s Turn`;
@@ -132,8 +158,8 @@ let domManipulator = (() => {
   };
 
   const drawInfo = () => {
-    infoBox.innerText = "Tie Game."
-  }
+    infoBox.innerText = "Tie Game.";
+  };
 
   const removeChildren = (parent) => {
     while (parent.firstChild) {
@@ -160,7 +186,8 @@ let domManipulator = (() => {
     drawInfo,
     removeChildren,
     createSpot,
-    placePiece
+    placePiece,
+    getPlayerInfo
   }
 })();
 
@@ -203,20 +230,4 @@ let computer = (name, piece) => {
   }
 }
 
-const playerModal = document.getElementById('player_modal');
-const player1NameInput = document.getElementById('player1_name');
-const player1ComputerStatus = document.getElementById('player1_computer')
-const player2NameInput = document.getElementById('player2_name');
-const player2ComputerStatus = document.getElementById('player2_computer');
-const playerInfoSubmit = document.getElementById('player_info_submit');
-
-playerInfoSubmit.addEventListener('click', (e) => {
-  e.preventDefault();
-  const player1Name = player1NameInput.value;
-  const player2Name = player2NameInput.value;
-  let player1 = (player1ComputerStatus.checked) ? computer(player1Name, 'X') : player(player1Name, 'X');
-  let player2 = (player2ComputerStatus.checked) ? computer(player2Name, 'O') : player(player2Name, 'O');
-  game.setPlayers(player1, player2);
-  playerModal.classList.add('hidden');
-  game.gameSetup();
-});
+game.gameSetup();
