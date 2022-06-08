@@ -12,7 +12,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  width: 40rem;
+  max-width: 40rem;
   height: 40rem;
   border-collapse: collapse;
   gap: 1px;
@@ -80,4 +80,29 @@ form {
 
 .hidden {
   display: none;
+}
+
+.game_controls {
+  max-width: 40rem;
+  margin-inline: auto;
+  margin-block: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media (max-width: 600px) {
+  .game_board_spot {
+    font-size: 4rem;
+  }
+  .game_board {
+    max-width: 20rem;
+    height: 20rem;
+  }
+  .game_controls {
+    max-width: 20rem;
+  }
+  .game_info {
+    font-size: 2.5rem;
+  }
 }
