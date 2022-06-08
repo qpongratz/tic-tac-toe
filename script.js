@@ -220,3 +220,45 @@ playerInfoSubmit.addEventListener('click', (e) => {
   playerModal.classList.add('hidden');
   game.gameSetup();
 });
+
+const moveScorer = (pieceToMove) => {
+  const piece = pieceToMove;
+  const otherPiece = (piece == 'X') ? 'O' : 'X';
+  const pieces = [piece, otherPiece];
+  const moveScores = new Map();
+
+  const chooseOptimalMove = (boardState, depth = 0) => {
+    potentialMoves = availableMoves(boardState);
+    potentialStates = movesToStates(boardState, potentialMoves, depth);
+  }
+
+  const availableMoves = (boardState) => {
+    let moves = []
+    boardState.forEach((element, index) => {
+      if (element == '') {
+        moves.push(index);
+      };
+    });
+    return moves;
+  };
+
+  const movesToStates = (boardState, arrayOfMoves, depth) => {
+    arrayOfMoves.forEach((move) => {
+      let boardCopy = boardStat.slice(0);
+      boardCopy[move] = pieces[(depth % pieces.length())];
+    })
+
+  }
+
+  const scoreMove = (piece, spot) => {
+    let boardCopy = state.slice(0);
+    boardCopy[spot] = piece;
+    if (wonBoard(piece, boardCopy)) {
+      return 10;
+    } else if (fullBoard(boardCopy)) {
+      return 0;
+    } else {
+      //recurse with enemy move * -1
+    }
+  }
+}
