@@ -30,20 +30,20 @@ let gameBoard = (() => {
     }
   }
 
-  const fullBoard = () => {
-    return !(state.includes(''));
+  const fullBoard = (boardState = state) => {
+    return !(boardState.includes(''));
   }
 
-  const wonBoard = (piece) => {
+  const wonBoard = (piece, boardState = state) => {
     const equalPiece = (element) => element == piece;
-    return ([state[0], state[1], state[2]].every(equalPiece) ||
-            [state[3], state[4], state[5]].every(equalPiece) ||
-            [state[6], state[7], state[8]].every(equalPiece) ||
-            [state[0], state[3], state[6]].every(equalPiece) ||
-            [state[1], state[4], state[7]].every(equalPiece) ||
-            [state[2], state[5], state[8]].every(equalPiece) ||
-            [state[0], state[4], state[8]].every(equalPiece) ||
-            [state[2], state[4], state[6]].every(equalPiece))
+    return ([boardState[0], boardState[1], boardState[2]].every(equalPiece) ||
+            [boardState[3], boardState[4], boardState[5]].every(equalPiece) ||
+            [boardState[6], boardState[7], boardState[8]].every(equalPiece) ||
+            [boardState[0], boardState[3], boardState[6]].every(equalPiece) ||
+            [boardState[1], boardState[4], boardState[7]].every(equalPiece) ||
+            [boardState[2], boardState[5], boardState[8]].every(equalPiece) ||
+            [boardState[0], boardState[4], boardState[8]].every(equalPiece) ||
+            [boardState[2], boardState[4], boardState[6]].every(equalPiece))
   }
 
   return {
