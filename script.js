@@ -59,17 +59,21 @@ let game = (() => {
   let players = [];
   let currentPlayer = null
   let active = false;
+  let queuedMove = null;
+
   const setPlayers = (player1, player2) => {
     players = [];
     players.push(player1);
     players.push(player2);
   }
   const gameSetup = () => {
+    clearTimeout(queuedMove);
     gameBoard.resetBoard();
     domManipulator.getPlayerInfo();
   }
 
   const newMatch = () => {
+    clearTimeout(queuedMove);
     gameBoard.resetBoard();
     turnStart();
   }
@@ -79,7 +83,7 @@ let game = (() => {
     players.push(currentPlayer);
     console.log(currentPlayer.playerPiece)
     if (currentPlayer.robot) {
-      setTimeout(robotMove, 500);
+      queuedMove = setTimeout(robotMove, 500);
     } else {
       active = true;
     };
@@ -229,5 +233,11 @@ let computer = (name, piece) => {
     makeMove
   }
 }
+
+const newGame = document.getElementById('new_game')
+const resetPlayers = document.getElementById('reset_players')
+
+newGame.addEventListener('click', game.newMatch);
+resetPlayers.addEventListener('click', game.gameSetup);
 
 game.gameSetup();
